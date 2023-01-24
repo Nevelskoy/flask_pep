@@ -5,4 +5,4 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
-    return 'Welcome to Flask from Hexlet! 11111'
+    return 'Welcome to Flask from Hexlet!'

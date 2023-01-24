@@ -4,7 +4,7 @@ version = "0.1.0"
 description = ""
 authors = ["Sadovskiy <safelikc@gmail.com>"]
 readme = "README.md"
-packages = [{include = "flask_pep"}]
+packages = [{include = "engine"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"

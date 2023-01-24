@@ -1,2 +1,2 @@
 start:
-	poetry run flask --app example --debug run
+	poetry run flask --app engine/example --debug run
