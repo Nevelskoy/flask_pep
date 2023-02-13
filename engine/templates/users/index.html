@@ -4,6 +4,10 @@
     <title>Hello users!</title>
   </head>
   <body>
+    <form action="/users" method="get">
+        <input type="search" name="term" value="{{ search }}" />
+        <input type="submit" value="Search" />
+    </form>
     <table>
       {% for user in users %}
       <tr>

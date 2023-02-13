@@ -1,5 +1,6 @@
-from flask import Flask
+from flask import Flask, request
 from flask import render_template
+import re
 
 
 app = Flask(__name__)
@@ -19,10 +20,23 @@ def hello_world():
 
 @app.route('/users/')
 def get_users():
+
+    term = request.args.get('term')
+  #  filtered_courses = # filter courses by term
+
+    if term is None:
+        return render_template(
+            '/users/index.html',
+            users=users
+        )
+
+    filtred = [x for x in users if re.search(term, x)]
+    
     return render_template(
-        '/users/index.html',
-        users=users
-    )
+            '/users/index.html',
+            users=filtred,
+            search=term,
+        )
 
 
 @app.route('/courses/<id>')
