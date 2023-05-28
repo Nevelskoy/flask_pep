@@ -5,8 +5,6 @@ import re
 
 app = Flask(__name__)
 
-#users = ['mike', 'mishel', 'adel', 'keks', 'kamila']
-
 '''
 @app.errorhandler(404)
 def not_found():
@@ -24,20 +22,17 @@ def get_users():
     nicknames = []
     with open("db/users.json", 'r') as rf:
          db_users = json.load(rf)
-         for user in db_users:
-           nicknames.append(db_users[user]['nickname'])
+         curr_db = db_users['persons']       
+         for user in curr_db:
+           nicknames.append(user['nickname'])
 
     term = request.args.get('term')
-  #  filtered_courses = # filter courses by term
-
-    # if term is None:
-    #     return render_template(
-    #         '/users/index.html',
-    #         users=users
-    #     )
-
-    # filtred = [x for x in users if re.search(term, x)]
-
+    if term:
+        filtred = [x for x in nicknames if re.search(term, x)]
+        return render_template(
+            '/users/index.html',
+            users=filtred
+        )
 
     return render_template(
             '/users/index.html',
@@ -46,30 +41,39 @@ def get_users():
         )
 
 
-@app.post('/users')
-def users_post():
-    repo = users
-    user = request.form.to_dict()
-    # errors = validate(user)
-    # if errors:
-    #     return render_template(
-    #       'users/new.html',
-    #       user=user,
-    #       errors=errors,
-    #     )
-    repo.append(user)
-    return redirect('/users', code=302)
-
-    
 @app.route('/users/new')
 def users_new():
     user = {'nickname': '',
-            'email ': ''}
+            'email ': '',
+            'city': ''}
 
     return render_template(
         '/users/new.html',
         user=user,
     )
+
+
+# @app.post('/users/')
+# def users_post():
+#     user = request.form.to_dict()
+#     print(user)
+
+#     with open("db/users.json", 'r') as rf:
+#         db_users = json.load(rf)
+#         id = len(db_users)
+#         db_users.append(user)
+    
+#     with open("db/users.json", 'w', encoding='utf8') as outfile: #Открываем файл для записи
+#         json.dump(db_users, outfile, ensure_ascii=False, indent=2)
+#     # errors = validate(user)
+#     # if errors:
+#     #     return render_template(
+#     #       'users/new.html',
+#     #       user=user,
+#     #       errors=errors,
+#     #     )
+
+#     return redirect('/users', code=302)
 
 
 @app.route('/courses/<id>')
