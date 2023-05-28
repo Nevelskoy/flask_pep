@@ -1,0 +1,26 @@
+<!-- templates/users/new.html -->
+<form action="/users" method="post">
+  <div>
+    <label>
+      Nickname
+      <input type="text" name="name" value="{{ user.nickname }}" />
+    </label>
+  </div>
+  <div>
+    <label>
+      Email
+      <input type="email" required name="email" value="{{ user.email }}" />
+    </label>
+  </div>
+  <div>
+    <label>
+      Город
+      <select name="city">
+        <option value="3">Москва</option>
+        <option value="13">Пенза</option>
+        <option value="399">Томск</option>
+      </select>
+    </label>
+  </div>
+  <input type="submit" value="Sign Up" />
+</form>

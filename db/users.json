@@ -1,0 +1,12 @@
+{
+  "user_01": {
+    "nickname": "Alex",
+    "email": "alex@email.ru",
+    "city": "Moscow"
+  },
+  "user_02": {
+    "nickname": "Tolya",
+    "email": "tolya@email.ru",
+    "city": "Tomsk"
+  }
+}
