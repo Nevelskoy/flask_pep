@@ -53,31 +53,32 @@ def users_new():
     )
 
 
-# @app.post('/users/')
-# def users_post():
-#     user = request.form.to_dict()
-#     print(user)
+@app.post('/users/')
+def users_post():
+    user_add = request.form.to_dict()
 
-#     with open("db/users.json", 'r') as rf:
-#         db_users = json.load(rf)
-#         id = len(db_users)
-#         db_users.append(user)
-    
-#     with open("db/users.json", 'w', encoding='utf8') as outfile: #Открываем файл для записи
-#         json.dump(db_users, outfile, ensure_ascii=False, indent=2)
-#     # errors = validate(user)
-#     # if errors:
-#     #     return render_template(
-#     #       'users/new.html',
-#     #       user=user,
-#     #       errors=errors,
-#     #     )
+    nicknames = []
+    with open("db/users.json", 'r') as rf:
+        db_users = json.load(rf)
+        print(db_users)
+        curr_db = db_users['persons']       
+        for user in curr_db:
+           nicknames.append(user)
+        nicknames.append(user_add)
+        db_users['persons'] = nicknames
+        print(db_users)
 
-#     return redirect('/users', code=302)
+    write_to_json("db/users.json", db_users)
+
+    return redirect('/users', code=302)
 
 
 @app.route('/courses/<id>')
 def courses(id):
     return f'Course id: {id}'
+
+def write_to_json(path, data):
+    with open(path, 'w') as rf:
+        json.dump(data, rf)
 
     
