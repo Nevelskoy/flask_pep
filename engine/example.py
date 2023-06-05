@@ -1,9 +1,11 @@
-from flask import Flask, request, render_template, redirect
+from flask import Flask, request, render_template, redirect, flash, get_flashed_messages
 import json
 import re
 
 
 app = Flask(__name__)
+
+app.secret_key = "secret_key"
 
 '''
 @app.errorhandler(404)
@@ -18,6 +20,9 @@ def hello_world():
 
 @app.route('/users/')
 def get_users():
+
+
+    messages = get_flashed_messages(with_categories=True)
 
     nicknames = []
     with open("db/users.json", 'r') as rf:
@@ -38,6 +43,7 @@ def get_users():
             '/users/index.html',
             users=nicknames,
             search=term,
+            messages=messages,
         )
 
 
@@ -69,7 +75,7 @@ def users_post():
         print(db_users)
 
     write_to_json("db/users.json", db_users)
-
+    flash('New user successfully added', 'success')
     return redirect('/users', code=302)
 
 
